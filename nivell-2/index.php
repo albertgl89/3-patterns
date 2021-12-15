@@ -1,5 +1,7 @@
 <?php
 
+include('poultry.php');
+
 function duck_interaction($duck)
 {
     $duck->quack();

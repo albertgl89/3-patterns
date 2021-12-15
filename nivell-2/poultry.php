@@ -36,3 +36,22 @@ class Turkey
         echo "I'm flying a short distance \n";
     }
 }
+
+class TurkeyAdapter {
+
+    private Turkey $turkey;
+
+    public function __construct(Turkey $turkey){
+        $this->turkey = $turkey;
+    }
+
+    public function quack(){
+        return $this->turkey->gobble();
+    }
+
+    public function fly(){
+        for ($i = 0; $i < 5; $i++){
+            $this->turkey->fly();
+        }
+    }
+}
