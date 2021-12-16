@@ -1,6 +1,8 @@
 <?php
 
-namespace Exercici3;
+require $_SERVER['DOCUMENT_ROOT'].'./controller/couponController.php';
+require $_SERVER['DOCUMENT_ROOT'].'./strategies/bmwCuoponGenerator.php';
+require $_SERVER['DOCUMENT_ROOT'].'./strategies/mercedesCuoponGenerator.php';
 
 /**
  * Penseu en la següent funció simple amb el nom couponGenerator que genera diferents cupons per a diferents tipus d'automòbils.
@@ -52,3 +54,47 @@ function cupounGenerator($car)
     return $cupoun = "Get {$discount}% off the price of your new car.";
 }
 echo cupounGenerator("bmw");
+
+//Tests
+echo PHP_EOL . PHP_EOL;//Separa la instrucció de l'enunciat dels testos
+$coupon = new couponController();
+
+$isHighSeason = false;
+$bigStock = true;
+
+//BMW. Output esperat: 12
+$coupon->setCar(new bmwCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+//Mercedes. Output esperat: 14
+$coupon->setCar(new mercedesCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+
+$isHighSeason = true;
+$bigStock = false;
+
+//BMW. Output esperat: 0
+$coupon->setCar(new bmwCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+//Mercedes. Output esperat: 0
+$coupon->setCar(new mercedesCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+
+$isHighSeason = true;
+$bigStock = true;
+
+//BMW. Output esperat: 7
+$coupon->setCar(new bmwCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+//Mercedes. Output esperat: 10
+$coupon->setCar(new mercedesCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+
+$isHighSeason = false;
+$bigStock = false;
+
+//BMW. Output esperat: 5
+$coupon->setCar(new bmwCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
+//Mercedes. Output esperat: 4
+$coupon->setCar(new mercedesCuoponGenerator($isHighSeason,$bigStock));
+echo $coupon->applyDiscounts();
